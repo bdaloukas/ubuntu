@@ -9,7 +9,7 @@ def createUser(name, username, password):
     encPass = crypt.crypt(password,"22")   
     return os.system("useradd -p "+encPass+ " -s "+ "/bin/bash "+ "-d "+ "/home/" + username+ " -m "+ " -c \""+ name+"\" " + username)
 
-def create_usernames( computers, tmimata1, count):
+def create_usernames( computers, tmimata1):
 	usernames = []
 	for computer in computers:
 		for tmima in tmimata1:
@@ -35,7 +35,10 @@ def append_user_to_group( username, groupname, group):
         os.system("usermod -a -G " + groupname + " " + username)
 					
 #Φτιάχνω τους χρήστες
-def create_users(groupname, tmimata, usernames):
+def create_users(groupname, computers, tmimata):
+    usernames = create_usernames( computers, tmimata)
+    print usernames
+
 	#Αρχικά φτιάχνω το group με όνομα groupname
     try:
         groups = grp.getgrall()
@@ -80,13 +83,6 @@ def create_users(groupname, tmimata, usernames):
                         append_user_to_group( username, tmima, group)
 
 
-tmimata = ['', 'a1', 'a2', 'b1']
 computers = ['a1', 'a2', 'a3', 'a4', 'a5', 'a6', 'a7', 'b1', 'b2', 'b3', 'b4', 'b5', 'b6', 'b7']
-
-#computers = ['a1', 'b1']
-usernames = create_usernames( computers, tmimata, 4)
-print usernames
-#Η πρώτη παράμετρος είναι το όνομα του group στο οποίο θα ανήκουν όλοι οι μαθητές (το τμήμα της τάξης δηλαδή)
-create_users( "erg", tmimata, usernames)
-
-
+tmimata = ['', 'a1', 'a2', 'b1']
+create_users( "erg", computers, tmimata)
