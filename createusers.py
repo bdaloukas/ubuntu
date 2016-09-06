@@ -1,5 +1,7 @@
 #!/usr/bin/python
 #-*- coding: utf-8 -*-
+# Copyright (C) 2016 Vasilis Daloukas <bdaloukas@gmail.com>
+# License GNU GPL version 3 or newer <http://gnu.org/licenses/gpl.html>
 
 import pwd, grp, os, crypt
 
