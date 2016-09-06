@@ -4,6 +4,10 @@
 # License GNU GPL version 3 or newer <http://gnu.org/licenses/gpl.html>
 
 import os,getpass
+import base64    
+from Crypto.Cipher import DES3
+
+REMMINAPREF_SECRET_B64=b'TJTk6d+qJghaWCE8Xl4M+CED6ZZ+XUkjRD/B+0jyDJU='
 
 def create_file_pref():
     username = getpass.getuser()
@@ -15,7 +19,7 @@ def create_file_pref():
     filename = dirname + "/remmina.pref"
     with open(filename, "w") as text_file:
         text_file.write("[remmina_pref]\n")
-        text_file.write("secret=TJTk6d+qJghaWCE8Xl4M+CED6ZZ+XUkjRD/B+0jyDJU=\n")
+        text_file.write("secret=" + REMMINAPREF_SECRET_B64 + "\n")
         text_file.write("save_view_mode=true\n")
         text_file.write("save_when_connect=true\n")
         text_file.write("invisible_toolbar=false\n")
@@ -59,7 +63,25 @@ def create_file_pref():
         text_file.write("vte_allow_bold_text=true\n")
         text_file.write("vte_lines=512\n")
 
-def create_file_remmina():
+def encryptRemminaPass(plain):
+    plain = plain.encode('utf-8')
+    secret = base64.b64decode(REMMINAPREF_SECRET_B64)
+    key = secret[:24]
+    iv = secret[24:]
+    plain = plain + b"\0" * (8 - len(plain) % 8)
+    cipher = DES3.new(key, DES3.MODE_CBC, iv)
+    result = cipher.encrypt(plain)
+    result = base64.b64encode(result)
+    result = result.decode('utf-8')
+    return result
+    
+def get_password( username):
+    if len(username) > 5:
+        username = username[:5] 
+    password = encryptRemminaPass( username)
+    return password
+    
+def create_file_remmina( ip):
     username = getpass.getuser()
     filename = os.environ['HOME'] + "/.remmina/1473068943832.remmina"
     with open(filename, "w") as text_file:
@@ -73,7 +95,7 @@ def create_file_remmina():
         text_file.write("sharesmartcard=0\n")
         text_file.write("resolution=\n")
         text_file.write("group=\n")
-        text_file.write("password=dqkbvcP4Al4=\n")
+        text_file.write("password=" + get_password( username) + "\n")
         text_file.write("name=winxp\n")
         text_file.write("ssh_loopback=0\n")
         text_file.write("shareprinter=0\n")
@@ -88,11 +110,11 @@ def create_file_remmina():
         text_file.write("sharefolder=\n")
         text_file.write("console=0\n")
         text_file.write("domain=\n")
-        text_file.write("server=10.32.0.251\n")
+        text_file.write("server=" + ip + "\n")
         text_file.write("colordepth=24\n")
         text_file.write("viewmode=1\n")
         text_file.write("window_maximize=1\n")
 
 create_file_pref()
-create_file_remmina()
+create_file_remmina( "10.32.0.251")
 
