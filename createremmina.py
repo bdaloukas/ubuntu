@@ -112,7 +112,7 @@ def create_file_remmina( ip):
         text_file.write("domain=\n")
         text_file.write("server=" + ip + "\n")
         text_file.write("colordepth=24\n")
-        text_file.write("viewmode=1\n")
+        text_file.write("viewmode=4\n")
         text_file.write("window_maximize=1\n")
 
 create_file_pref()
