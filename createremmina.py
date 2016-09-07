@@ -106,7 +106,7 @@ def create_file_remmina( ip):
         text_file.write("execpath=\n")
         text_file.write("sound=local\n")
         text_file.write("exec=\n")
-        text_file.write("username=erga1\n")
+        text_file.write("username=" + username + "\n")
         text_file.write("sharefolder=\n")
         text_file.write("console=0\n")
         text_file.write("domain=\n")
