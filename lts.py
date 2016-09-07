@@ -38,12 +38,17 @@ def change_tmima( tmima):
     change_tmima_do( input_file, temp_file, tmima)
     shutil.copyfile( temp_file, input_file)
 
+tmima = ""
 if len( sys.argv) == 2:
     tmima = str(sys.argv[1])
+    if tmima == "xo":
+        tmima = ""
+
+if tmima != "":
     if len(tmima) == 2:
         print "Αλλαγή στο τμήμα " + tmima
         change_tmima( tmima)
-if len( sys.argv) == 1:
+if tmima == "":
     print "Αλλαγή σε ΧΩΡΙΣ ΤΜΗΜΑ"
     change_tmima( "")
 
