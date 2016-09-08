@@ -12,25 +12,39 @@ def update_memory( input_file, temp_file, check):
         print "disable check memory"
     search1 = "kernel vmlinuz"
     search2 = "append ro initrd"
+    search3 = "linux memtest86+.bin"
     found = 0
+    foundmemory = 0
     with open(temp_file, "w") as text_file:
         for line in fileinput.input(input_file):
             if line[0:len(search1)] == search1:
-                if check == 0:
+                if check == 1:
                     line = "#" + line
                     found = 1
             if line[0:len(search2)] == search2:
-                if check == 0:
+                if check == 1:
                     line = "#" + line
                     found = 1
+            if line[0:len(search3)] == search3:
+                if check == 0:
+                    line = "#" + line
+                    found = 1                
+                    foundmemory = 1
             if line[1:len(search1)+1] == search1:
-                if check == 1:
+                if check == 0:
                     line = line[1:]
                     found = 1
             if line[1:len(search2)+1] == search2:
-                if check == 1:
+                if check == 0:
+                    if foundmemory == 0:
+                        text_file.write( "linux memtest86+.bin\n")
                     line = line[1:]
                     found = 1                    
+            if line[1:len(search3)+1] == search3:
+                if check == 1:
+                    line = line[1:]
+                    found = 1
+                    foundmemory = 0
             text_file.write( line)
     if found == 0:
         print "ΔΕΝ χρειάστηκε αλλαγή"
@@ -42,7 +56,7 @@ def update_memory( input_file, temp_file, check):
 check = 0
 if len( sys.argv) == 2:
     check = 1
-input_file = "PXELinux"
+input_file = "/var/lib/tftpboot/ltsp/i386/pxelinux.cfg/default"
 temp_file = input_file + ".tmp"
 bak_file = input_file + ".bak"
 if update_memory( input_file, temp_file, check) != 0:
