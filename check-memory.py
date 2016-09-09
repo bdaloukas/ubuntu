@@ -6,6 +6,7 @@
 import os, fileinput, getpass, shutil, sys
 
 def update_memory( input_file, temp_file, check):
+    first = 1
     if check != 0:
         print "enable check memory"
     else:
@@ -17,32 +18,51 @@ def update_memory( input_file, temp_file, check):
     foundmemory = 0
     with open(temp_file, "w") as text_file:
         for line in fileinput.input(input_file):
+            #Αν θέλουμε έλεγχο μνήμης πρέπει να μπει σε σχόλια το search1
             if line[0:len(search1)] == search1:
                 if check == 1:
-                    line = "#" + line
+                    if first == 1:
+                        line = "#" + line
+                        print line
                     found = 1
+            #Αν θέλουμε έλεγχο μνήμης πρέπει να μπει σε σχόλια το search2
             if line[0:len(search2)] == search2:
                 if check == 1:
-                    line = "#" + line
+                    if first == 1:
+                        line = "#" + line
+                        print line
+                        print "foundmemory"
+                        print foundmemory
+                        #Αν δεν βρήκε μέχρι στιγμή το memetest το προσθέτει
+                        if foundmemory == 0:
+                            text_file.write( "linux memtest86+.bin\n")
                     found = 1
+                first = 0
+            #Αν δεν θέλουμε έλεγχο μνήμης πρέπει το search3 (memtest) να μπει από σχόλια
             if line[0:len(search3)] == search3:
                 if check == 0:
-                    line = "#" + line
+                    if first == 1:
+                        line = "#" + line
                     found = 1                
                     foundmemory = 1
+            #Αν δεν θέλουμε έλεγχο μνήμης και βρει σε σχόλια το search1 τότε βγάζει τα σχόλια
             if line[1:len(search1)+1] == search1:
                 if check == 0:
-                    line = line[1:]
+                    if first == 1:
+                        line = line[1:]
                     found = 1
+            #Αν δεν θέλουμε έλεγχο μνήμης και βρει σε σχόλια το search2 τότε βγάζει τα σχόλια
+            #Αν θέλουμε έλεγχο μνήμης και δεν βρήκε τη γραμμή memtest τότε την προσθέτει στο αρχείο
             if line[1:len(search2)+1] == search2:
                 if check == 0:
-                    if foundmemory == 0:
-                        text_file.write( "linux memtest86+.bin\n")
                     line = line[1:]
                     found = 1                    
+                first = 0
+            #Αν θέλουμε έλεγχο μνήμης πρέπει να βγάλουμε τα σχόλια από το search3 (memtest)
             if line[1:len(search3)+1] == search3:
                 if check == 1:
-                    line = line[1:]
+                    if first == 1:
+                        line = line[1:]
                     found = 1
                     foundmemory = 0
             text_file.write( line)
