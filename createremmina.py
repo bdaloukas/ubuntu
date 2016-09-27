@@ -3,7 +3,7 @@
 # Copyright (C) 2016 Vasilis Daloukas <bdaloukas@gmail.com>
 # License GNU GPL version 3 or newer <http://gnu.org/licenses/gpl.html>
 
-import os,getpass
+import os,getpass,socket
 import base64    
 from Crypto.Cipher import DES3
 
@@ -101,7 +101,7 @@ def create_file_remmina( ip):
         text_file.write("shareprinter=0\n")
         text_file.write("ssh_username=\n")
         text_file.write("ssh_server=\n")
-        text_file.write("security=\n")
+        text_file.write("security=rdp\n")
         text_file.write("protocol=RDP\n")
         text_file.write("execpath=\n")
         text_file.write("sound=local\n")
@@ -111,10 +111,15 @@ def create_file_remmina( ip):
         text_file.write("console=0\n")
         text_file.write("domain=\n")
         text_file.write("server=" + ip + "\n")
-        text_file.write("colordepth=24\n")
+        text_file.write("colordepth=16\n")
         text_file.write("viewmode=4\n")
         text_file.write("window_maximize=1\n")
 
 create_file_pref()
-create_file_remmina( "10.32.0.251")
+s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+s.connect( ("8.8.8.8", 0))
+ip = s.getsockname()[0]
+pos = ip.rfind( ".")
+ip = ip[ 0: pos+1]+"20"
+create_file_remmina( ip)
 
