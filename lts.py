@@ -21,6 +21,8 @@ def repair(line, username, tmima):
         return token1+"="+token2+tmima+"\n"
     if len(token2) == 7:
         return token1+"="+token2[0:5]+tmima+"\n"
+    if len(token2) == 8:
+        return token1+"="+token2[0:5]+tmima+"\n"      
     return line
 
 def change_tmima_do( input_file, temp_file, tmima):
@@ -48,6 +50,10 @@ if tmima != "":
     if len(tmima) == 2:
         print "Αλλαγή στο τμήμα " + tmima
         change_tmima( tmima)
+if tmima != "":
+    if len(tmima) == 3:
+        print "Αλλαγή στο τμήμα " + tmima
+        change_tmima( tmima)        
 if tmima == "":
     print "Αλλαγή σε ΧΩΡΙΣ ΤΜΗΜΑ"
     change_tmima( "")

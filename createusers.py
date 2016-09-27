@@ -3,7 +3,7 @@
 # Copyright (C) 2016 Vasilis Daloukas <bdaloukas@gmail.com>
 # License GNU GPL version 3 or newer <http://gnu.org/licenses/gpl.html>
 
-import pwd, grp, os, crypt
+import pwd, grp, os, crypt, os, getpass, stat, shutil
 
 def createUser(name, username, password):
     encPass = crypt.crypt(password,"22")   
@@ -81,8 +81,28 @@ def create_users(groupname, computers, tmimata):
                 for username in usernames:
                     if username[ -2:] == tmima:
                         append_user_to_group( username, tmima, group)
-
+                        
+def create_change_tmima( tmimata):
+    tmimata.append( "xo")
+    username = getpass.getuser()
+    dirname = os.environ['HOME'] + "/Επιφάνεια εργασίας/Αλλαγή τμήματος";
+    try:
+        os.stat(dirname)
+    except:
+        os.mkdir(dirname)    
+    for tmima in tmimata:
+        filename = dirname + "/" + tmima + ".sh"
+        with open(filename, "w") as text_file:    
+            text_file.write( "#!/bin/sh\n")
+            text_file.write( "# $0 is the script name\n")
+            text_file.write( "\n")
+            text_file.write( "me=`basename \"$0\"`\n")
+            text_file.write( "sudo python lts.py ${me%.*}\n")
+            text_file.write( "read -p \"Πατήστε Enter\" yn \n")
+        os.chmod( filename, stat.S_IRUSR | stat.S_IRGRP | stat.S_IROTH | stat.S_IWUSR | stat.S_IXUSR | stat.S_IXGRP | stat.S_IXOTH)
+    shutil.copy2( "lts.py", dirname + "/lts.py")       
 
 computers = ['a1', 'a2', 'a3', 'a4', 'a5', 'b1', 'b2', 'b3', 'b4', 'b5', 'b6', 'c1', 'c2', 'c3', 'c4', 'c5']
 tmimata = ['', 'a1', 'a2', 'a3', 'a4', 'b1', 'b2', 'b3', 'b4', 'c1', 'c1', 'c2', 'c3', 'c4', 'a1b', 'a2b', 'a3b', 'a4b', 'b1b', 'b2b', 'b3b', 'b4b', 'c1b', 'c1b', 'c2b', 'c3b', 'c4b']
 create_users( "erg", computers, tmimata)
+create_change_tmima( tmimata)
