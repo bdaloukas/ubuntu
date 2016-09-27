@@ -3,15 +3,14 @@
 # Copyright (C) 2016 Vasilis Daloukas <bdaloukas@gmail.com>
 # License GNU GPL version 3 or newer <http://gnu.org/licenses/gpl.html>
 
-import os,getpass,socket
+import os,getpass,socket,sys
 import base64    
 from Crypto.Cipher import DES3
 
 REMMINAPREF_SECRET_B64=b'TJTk6d+qJghaWCE8Xl4M+CED6ZZ+XUkjRD/B+0jyDJU='
 
-def create_file_pref():
-    username = getpass.getuser()
-    dirname = os.environ['HOME'] + "/.remmina";
+def create_file_pref( username):
+    dirname = "/home/" + username + "/.remmina";
     try:
         os.stat(dirname)
     except:
@@ -76,14 +75,12 @@ def encryptRemminaPass(plain):
     return result
     
 def get_password( username):
-    if len(username) > 5:
-        username = username[:5] 
     password = encryptRemminaPass( username)
     return password
     
-def create_file_remmina( ip):
-    username = getpass.getuser()
-    filename = os.environ['HOME'] + "/.remmina/1473068943832.remmina"
+def create_file_remmina( username, ip):
+    filename = "/home/" + username + "/.remmina/1473068943832.remmina"
+    username2 = username[ 0:5]
     with open(filename, "w") as text_file:
         text_file.write("[remmina]\n")
         text_file.write("disableclipboard=0\n")
@@ -95,7 +92,7 @@ def create_file_remmina( ip):
         text_file.write("sharesmartcard=0\n")
         text_file.write("resolution=\n")
         text_file.write("group=\n")
-        text_file.write("password=" + get_password( username) + "\n")
+        text_file.write("password=" + get_password( username2) + "\n")
         text_file.write("name=winxp\n")
         text_file.write("ssh_loopback=0\n")
         text_file.write("shareprinter=0\n")
@@ -106,7 +103,7 @@ def create_file_remmina( ip):
         text_file.write("execpath=\n")
         text_file.write("sound=local\n")
         text_file.write("exec=\n")
-        text_file.write("username=" + username + "\n")
+        text_file.write("username=" + username2 + "\n")
         text_file.write("sharefolder=\n")
         text_file.write("console=0\n")
         text_file.write("domain=\n")
@@ -115,11 +112,15 @@ def create_file_remmina( ip):
         text_file.write("viewmode=4\n")
         text_file.write("window_maximize=1\n")
 
-create_file_pref()
+if len( sys.argv) == 2:
+    username = str(sys.argv[1])
+else:
+    username = getpass.getuser()
+create_file_pref( username)
 s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 s.connect( ("8.8.8.8", 0))
 ip = s.getsockname()[0]
 pos = ip.rfind( ".")
 ip = ip[ 0: pos+1]+"20"
-create_file_remmina( ip)
+create_file_remmina( username, ip)
 
