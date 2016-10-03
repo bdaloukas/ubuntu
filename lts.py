@@ -15,7 +15,7 @@ def repair(line, username, tmima):
         return line
     token1 = line[0:pos]
     token2 = line[pos+1:].strip()
-    if (token1 != "HOSTNAME") and (token1 != "LDM_USERNAME") and (token1 != "LDM_PASSWORD"):
+    if (token1 != "LDM_USERNAME") and (token1 != "LDM_PASSWORD"):
         return line
     if len(token2) == 5:
         return token1+"="+token2+tmima+"\n"

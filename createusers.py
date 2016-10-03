@@ -81,6 +81,8 @@ def create_users(groupname, computers, tmimata):
                 for username in usernames:
                     if username[ -2:] == tmima:
                         append_user_to_group( username, tmima, group)
+                    if username[ -3:] == tmima:
+                        append_user_to_group( username, tmima, group)                        
                         
 def create_change_tmima( tmimata):
     tmimata.append( "xo")
