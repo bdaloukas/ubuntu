@@ -110,17 +110,16 @@ def make_scripts():
         os.stat(dirname)
     except:
         os.mkdir(dirname)
-    os.system( "sudo chown  administrator /scripts/;sudo chgrp  administrator /scripts/")
+    #os.system( "sudo chown  administrator /scripts/;sudo chgrp  administrator /scripts/")
     
-    filename = dirname + "/init-client-mate.sh"
-    with open(filename, "w") as text_file:
-        text_file.write( "python /scripts/createremmina.py\n")
-        text_file.write( "dconf load /org/mate/panel/ < /scripts/panel-client-mate.txt\n")
-    os.system( "chown administrator /scripts/createremmina.py;chmod 777 /scripts/createremmina.py")
-    shutil.copy2( "scripts/createremmina.py", "/scripts/createremmina.py")
-    os.system( "chown administrator scripts/createremmina.py")
-    shutil.copy2( "scripts/panel-client-mate.txt", "/scripts/panel-client-mate.txt")
-    os.system( "chown administrator /scripts/panel-client-mate.txt")
+    #filename = dirname + "/init-client-mate.sh"
+    #with open(filename, "w") as text_file:
+    #    text_file.write( "python /scripts/createremmina.py\n")
+    #    text_file.write( "dconf load /org/mate/panel/ < /scripts/panel-client-mate.txt\n")
+    #os.system( "chown administrator /scripts/createremmina.py;chmod 777 /scripts/createremmina.py")
+    #shutil.copy2( "scripts/createremmina.py", "/scripts/createremmina.py")
+    #os.system( "chown administrator scripts/createremmina.py")
+
 
 
 def init_users( groupname, computers, tmimata):
@@ -132,8 +131,8 @@ def init_users( groupname, computers, tmimata):
         print cmd
 
 computers = ['a1', 'a2', 'a3', 'a4', 'a5', 'b1', 'b2', 'b3', 'b4', 'b5', 'b6', 'c1', 'c2', 'c3', 'c4', 'c5']
-tmimata = ['', 'a1', 'a2', 'a3', 'a4', 'b1', 'b2', 'b3', 'b4', 'c1', 'c1', 'c2', 'c3', 'c4', 'a1b', 'a2b', 'a3b', 'a4b', 'b1b', 'b2b', 'b3b', 'b4b', 'c1b', 'c1b', 'c2b', 'c3b', 'c4b']
+tmimata = ['']
 create_users( "erg", computers, tmimata)
 create_change_tmima( tmimata)
-make_scripts()
+#make_scripts()
 init_users( "erg", computers, tmimata)

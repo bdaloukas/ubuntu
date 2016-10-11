@@ -40,5 +40,6 @@ try:
     os.stat(dirname)
 except:
     os.mkdir(dirname)
+os.system( "chmod 755 " + dirname)
 
 repair_samba( "public", dirname)

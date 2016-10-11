@@ -20,7 +20,7 @@ pack-type='start'
 toplevel-id='top-panel'
 
 [objects/object-1/instance-config]
-location='remmina-1.desktop'
+location='remmina.desktop'
 
 [objects/object-1]
 object-iid='PanelInternalFactory::Launcher'
