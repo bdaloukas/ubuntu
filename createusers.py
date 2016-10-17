@@ -133,6 +133,7 @@ def init_users( groupname, computers, tmimata):
 computers = ['a1', 'a2', 'a3', 'a4', 'a5', 'b1', 'b2', 'b3', 'b4', 'b5', 'b6', 'c1', 'c2', 'c3', 'c4', 'c5']
 tmimata = ['']
 create_users( "erg", computers, tmimata)
-create_change_tmima( tmimata)
+if len(tmimata) > 1:
+    create_change_tmima( tmimata)
 #make_scripts()
 init_users( "erg", computers, tmimata)
