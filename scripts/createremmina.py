@@ -93,7 +93,7 @@ def create_file_remmina( username, ip):
         text_file.write("resolution=\n")
         text_file.write("group=\n")
         text_file.write("password=" + get_password( username2) + "\n")
-        text_file.write("name=winxp\n")
+        text_file.write("name=Windows\n")
         text_file.write("ssh_loopback=0\n")
         text_file.write("shareprinter=0\n")
         text_file.write("ssh_username=\n")

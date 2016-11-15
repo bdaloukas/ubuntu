@@ -5,121 +5,199 @@
 ** is running, your changes will be overwritten later, without taking effect.
 ** Use VBoxManage or the VirtualBox Manager GUI to make changes.
 -->
-<VirtualBox xmlns="http://www.virtualbox.org/" version="1.15-linux">
-  <Machine uuid="{48e5c86f-feed-47bd-b4a5-ce5cb0bf321d}" name="WinXP" OSType="WindowsXP" snapshotFolder="Snapshots" lastStateChange="2016-09-30T09:05:45Z">
+<VirtualBox xmlns="http://www.innotek.de/VirtualBox-settings" version="1.14-linux">
+  <Machine uuid="{48e5c86f-feed-47bd-b4a5-ce5cb0bf321d}" name="WinXP" OSType="WindowsXP" snapshotFolder="Snapshots" lastStateChange="2016-11-15T09:28:46Z">
     <MediaRegistry>
       <HardDisks>
         <HardDisk uuid="{d4ae40f5-e247-4848-b2dc-68bff3158545}" location="kse-ver3.vdi" format="VDI" type="Normal"/>
       </HardDisks>
+      <DVDImages/>
+      <FloppyImages/>
     </MediaRegistry>
     <ExtraData>
       <ExtraDataItem name="GUI/LastCloseAction" value="PowerOff"/>
-      <ExtraDataItem name="GUI/LastGuestSizeHint" value="1024,645"/>
-      <ExtraDataItem name="GUI/LastNormalWindowPosition" value="192,120,640,527"/>
+      <ExtraDataItem name="GUI/LastGuestSizeHint" value="1024,768"/>
+      <ExtraDataItem name="GUI/LastNormalWindowPosition" value="192,60,1024,815"/>
       <ExtraDataItem name="GUI/RestrictedRuntimeDevicesMenuActions" value="HardDrives"/>
       <ExtraDataItem name="GUI/RestrictedRuntimeMachineMenuActions" value="SaveState,PowerOff"/>
       <ExtraDataItem name="GUI/ScaleFactor" value="1"/>
       <ExtraDataItem name="GUI/StatusBar/IndicatorOrder" value="HardDisks,OpticalDisks,FloppyDisks,Network,USB,SharedFolders,Display,VideoCapture,Features,Mouse,Keyboard"/>
     </ExtraData>
-    <Hardware>
-      <CPU>
+    <Hardware version="2">
+      <CPU count="1" hotplug="false">
+        <HardwareVirtEx enabled="true"/>
+        <HardwareVirtExNestedPaging enabled="true"/>
+        <HardwareVirtExVPID enabled="true"/>
+        <HardwareVirtExUX enabled="true"/>
         <PAE enabled="false"/>
         <LongMode enabled="false"/>
         <HardwareVirtExLargePages enabled="false"/>
+        <HardwareVirtForce enabled="false"/>
       </CPU>
-      <Memory RAMSize="3584"/>
-      <HID Pointing="USBTablet"/>
-      <Paravirt provider="Default"/>
+      <Memory RAMSize="3584" PageFusion="false"/>
+      <HID Pointing="USBTablet" Keyboard="PS2Keyboard"/>
+      <HPET enabled="false"/>
+      <Chipset type="PIIX3"/>
       <Boot>
         <Order position="1" device="HardDisk"/>
         <Order position="2" device="None"/>
         <Order position="3" device="None"/>
         <Order position="4" device="None"/>
       </Boot>
-      <Display VRAMSize="32" accelerate2DVideo="true"/>
-      <RemoteDisplay enabled="false">
+      <Display VRAMSize="32" monitorCount="1" accelerate3D="false" accelerate2DVideo="true"/>
+      <VideoCapture enabled="false" screens="18446744073709551615" horzRes="1024" vertRes="768" rate="512" fps="25"/>
+      <RemoteDisplay enabled="false" authType="Null" authTimeout="5000">
         <VRDEProperties>
           <Property name="TCP/Ports" value="3389"/>
         </VRDEProperties>
       </RemoteDisplay>
       <BIOS>
+        <ACPI enabled="true"/>
         <IOAPIC enabled="true"/>
+        <Logo fadeIn="true" fadeOut="true" displayTime="0"/>
+        <BootMenu mode="MessageAndMenu"/>
+        <TimeOffset value="0"/>
+        <PXEDebug enabled="false"/>
       </BIOS>
       <USB>
         <Controllers>
           <Controller name="OHCI" type="OHCI"/>
           <Controller name="EHCI" type="EHCI"/>
         </Controllers>
+        <DeviceFilters/>
       </USB>
       <Network>
-        <Adapter slot="0" enabled="true" MACAddress="0800274B076B" cable="true" type="82543GC">
+        <Adapter slot="0" enabled="true" MACAddress="0800274B076B" cable="true" speed="0" type="82543GC">
           <DisabledModes>
+            <NAT>
+              <DNS pass-domain="true" use-proxy="false" use-host-resolver="false"/>
+              <Alias logging="false" proxy-only="false" use-same-ports="false"/>
+            </NAT>
             <InternalNetwork name="intnet"/>
             <NATNetwork name="NatNetwork"/>
           </DisabledModes>
-          <BridgedInterface name="enp2s0"/>
+          <BridgedInterface name="eth0"/>
         </Adapter>
-        <Adapter slot="1" cable="true" type="82543GC"/>
-        <Adapter slot="2" cable="true" type="82543GC"/>
-        <Adapter slot="3" cable="true" type="82543GC"/>
-        <Adapter slot="4" cable="true" type="82543GC"/>
-        <Adapter slot="5" cable="true" type="82543GC"/>
-        <Adapter slot="6" cable="true" type="82543GC"/>
-        <Adapter slot="7" cable="true" type="82543GC"/>
+        <Adapter slot="1" enabled="false" MACAddress="08002712F7D1" cable="true" speed="0" type="82543GC">
+          <DisabledModes>
+            <NAT>
+              <DNS pass-domain="true" use-proxy="false" use-host-resolver="false"/>
+              <Alias logging="false" proxy-only="false" use-same-ports="false"/>
+            </NAT>
+          </DisabledModes>
+        </Adapter>
+        <Adapter slot="2" enabled="false" MACAddress="080027C982E6" cable="true" speed="0" type="82543GC">
+          <DisabledModes>
+            <NAT>
+              <DNS pass-domain="true" use-proxy="false" use-host-resolver="false"/>
+              <Alias logging="false" proxy-only="false" use-same-ports="false"/>
+            </NAT>
+          </DisabledModes>
+        </Adapter>
+        <Adapter slot="3" enabled="false" MACAddress="0800278CFBD7" cable="true" speed="0" type="82543GC">
+          <DisabledModes>
+            <NAT>
+              <DNS pass-domain="true" use-proxy="false" use-host-resolver="false"/>
+              <Alias logging="false" proxy-only="false" use-same-ports="false"/>
+            </NAT>
+          </DisabledModes>
+        </Adapter>
+        <Adapter slot="4" enabled="false" MACAddress="08002775349A" cable="true" speed="0" type="82543GC">
+          <DisabledModes>
+            <NAT>
+              <DNS pass-domain="true" use-proxy="false" use-host-resolver="false"/>
+              <Alias logging="false" proxy-only="false" use-same-ports="false"/>
+            </NAT>
+          </DisabledModes>
+        </Adapter>
+        <Adapter slot="5" enabled="false" MACAddress="080027D3F164" cable="true" speed="0" type="82543GC">
+          <DisabledModes>
+            <NAT>
+              <DNS pass-domain="true" use-proxy="false" use-host-resolver="false"/>
+              <Alias logging="false" proxy-only="false" use-same-ports="false"/>
+            </NAT>
+          </DisabledModes>
+        </Adapter>
+        <Adapter slot="6" enabled="false" MACAddress="080027959B69" cable="true" speed="0" type="82543GC">
+          <DisabledModes>
+            <NAT>
+              <DNS pass-domain="true" use-proxy="false" use-host-resolver="false"/>
+              <Alias logging="false" proxy-only="false" use-same-ports="false"/>
+            </NAT>
+          </DisabledModes>
+        </Adapter>
+        <Adapter slot="7" enabled="false" MACAddress="080027E310B9" cable="true" speed="0" type="82543GC">
+          <DisabledModes>
+            <NAT>
+              <DNS pass-domain="true" use-proxy="false" use-host-resolver="false"/>
+              <Alias logging="false" proxy-only="false" use-same-ports="false"/>
+            </NAT>
+          </DisabledModes>
+        </Adapter>
       </Network>
+      <UART>
+        <Port slot="0" enabled="false" IOBase="0x3f8" IRQ="4" hostMode="Disconnected"/>
+        <Port slot="1" enabled="false" IOBase="0x3f8" IRQ="4" hostMode="Disconnected"/>
+      </UART>
       <LPT>
+        <Port slot="0" enabled="false" IOBase="0x378" IRQ="7"/>
         <Port slot="1" enabled="false" IOBase="0x378" IRQ="7"/>
       </LPT>
-      <AudioAdapter driver="Pulse" enabled="true"/>
+      <AudioAdapter controller="AC97" driver="Pulse" enabled="true"/>
       <RTC localOrUTC="UTC"/>
+      <SharedFolders>
+        <SharedFolder name="winxp" hostPath="/home/administrator/winxp" writable="true" autoMount="true"/>
+      </SharedFolders>
+      <Clipboard mode="Disabled"/>
+      <DragAndDrop mode="Disabled"/>
+      <IO>
+        <IoCache enabled="true" size="5"/>
+        <BandwidthGroups/>
+      </IO>
+      <HostPci>
+        <Devices/>
+      </HostPci>
+      <EmulatedUSB>
+        <CardReader enabled="false"/>
+      </EmulatedUSB>
+      <Guest memoryBalloonSize="0"/>
       <GuestProperties>
-        <GuestProperty name="/VirtualBox/GuestAdd/Components/VBoxControl.exe" value="5.0.8r103449" timestamp="1475226357864864000" flags=""/>
-        <GuestProperty name="/VirtualBox/GuestAdd/Components/VBoxCredProv.dll" value="-" timestamp="1475226357869571000" flags=""/>
-        <GuestProperty name="/VirtualBox/GuestAdd/Components/VBoxDisp.dll" value="5.0.8r103449" timestamp="1475226357866643000" flags=""/>
-        <GuestProperty name="/VirtualBox/GuestAdd/Components/VBoxGINA.dll" value="-" timestamp="1475226357869430000" flags=""/>
-        <GuestProperty name="/VirtualBox/GuestAdd/Components/VBoxGuest.sys" value="5.0.8r103449" timestamp="1475226357873953000" flags=""/>
-        <GuestProperty name="/VirtualBox/GuestAdd/Components/VBoxHook.dll" value="5.0.8r103449" timestamp="1475226357865438000" flags=""/>
-        <GuestProperty name="/VirtualBox/GuestAdd/Components/VBoxMRXNP.dll" value="5.0.8r103449" timestamp="1475226357868225000" flags=""/>
-        <GuestProperty name="/VirtualBox/GuestAdd/Components/VBoxMouse.sys" value="5.0.8r103449" timestamp="1475226357874167000" flags=""/>
-        <GuestProperty name="/VirtualBox/GuestAdd/Components/VBoxOGL.dll" value="5.0.8r103449" timestamp="1475226357873530000" flags=""/>
-        <GuestProperty name="/VirtualBox/GuestAdd/Components/VBoxOGLarrayspu.dll" value="5.0.8r103449" timestamp="1475226357869786000" flags=""/>
-        <GuestProperty name="/VirtualBox/GuestAdd/Components/VBoxOGLcrutil.dll" value="5.0.8r103449" timestamp="1475226357870746000" flags=""/>
-        <GuestProperty name="/VirtualBox/GuestAdd/Components/VBoxOGLerrorspu.dll" value="5.0.8r103449" timestamp="1475226357870955000" flags=""/>
-        <GuestProperty name="/VirtualBox/GuestAdd/Components/VBoxOGLfeedbackspu.dll" value="5.0.8r103449" timestamp="1475226357872648000" flags=""/>
-        <GuestProperty name="/VirtualBox/GuestAdd/Components/VBoxOGLpackspu.dll" value="5.0.8r103449" timestamp="1475226357871738000" flags=""/>
-        <GuestProperty name="/VirtualBox/GuestAdd/Components/VBoxOGLpassthroughspu.dll" value="5.0.8r103449" timestamp="1475226357871949000" flags=""/>
-        <GuestProperty name="/VirtualBox/GuestAdd/Components/VBoxSF.sys" value="5.0.8r103449" timestamp="1475226357874365000" flags=""/>
-        <GuestProperty name="/VirtualBox/GuestAdd/Components/VBoxService.exe" value="5.0.8r103449" timestamp="1475226357868482000" flags=""/>
-        <GuestProperty name="/VirtualBox/GuestAdd/Components/VBoxTray.exe" value="5.0.8r103449" timestamp="1475226357869267000" flags=""/>
-        <GuestProperty name="/VirtualBox/GuestAdd/Components/VBoxVideo.sys" value="5.0.8r103449" timestamp="1475226357874567000" flags=""/>
-        <GuestProperty name="/VirtualBox/GuestAdd/HostVerLastChecked" value="5.1.6" timestamp="1475226770071870000" flags=""/>
-        <GuestProperty name="/VirtualBox/GuestAdd/InstallDir" value="C:/Program Files/Oracle/VirtualBox Guest Additions" timestamp="1475226357858528000" flags=""/>
-        <GuestProperty name="/VirtualBox/GuestAdd/Revision" value="103449" timestamp="1475226357857293000" flags=""/>
-        <GuestProperty name="/VirtualBox/GuestAdd/Version" value="5.0.8" timestamp="1475226357856535000" flags=""/>
-        <GuestProperty name="/VirtualBox/GuestAdd/VersionExt" value="5.0.8" timestamp="1475226357856966000" flags=""/>
-        <GuestProperty name="/VirtualBox/GuestInfo/Net/0/MAC" value="0800274B076B" timestamp="1475226362880795000" flags=""/>
-        <GuestProperty name="/VirtualBox/GuestInfo/Net/0/Status" value="Up" timestamp="1475226362880612000" flags=""/>
-        <GuestProperty name="/VirtualBox/GuestInfo/Net/0/V4/Broadcast" value="255.255.255.255" timestamp="1475226362878174000" flags=""/>
-        <GuestProperty name="/VirtualBox/GuestInfo/Net/0/V4/IP" value="10.33.35.20" timestamp="1475226778810146000" flags=""/>
-        <GuestProperty name="/VirtualBox/GuestInfo/Net/0/V4/Netmask" value="255.255.255.0" timestamp="1475226362880427000" flags=""/>
-        <GuestProperty name="/VirtualBox/GuestInfo/Net/Count" value="1" timestamp="1475226868283639000" flags=""/>
-        <GuestProperty name="/VirtualBox/GuestInfo/OS/LoggedInUsers" value="2" timestamp="1475226763763206000" flags="TRANSIENT, TRANSRESET"/>
-        <GuestProperty name="/VirtualBox/GuestInfo/OS/LoggedInUsersList" value="erga1,admin" timestamp="1475226763759606000" flags="TRANSIENT, TRANSRESET"/>
-        <GuestProperty name="/VirtualBox/GuestInfo/OS/NoLoggedInUsers" value="false" timestamp="1475226540584104000" flags="TRANSIENT, TRANSRESET"/>
-        <GuestProperty name="/VirtualBox/GuestInfo/OS/Product" value="Windows XP Professional" timestamp="1475226357855232000" flags=""/>
-        <GuestProperty name="/VirtualBox/GuestInfo/OS/Release" value="5.1.2600" timestamp="1475226357855364000" flags=""/>
-        <GuestProperty name="/VirtualBox/GuestInfo/OS/ServicePack" value="3" timestamp="1475226357856381000" flags=""/>
-        <GuestProperty name="/VirtualBox/GuestInfo/User/admin@PCWINXPKSE/UsageState" value="InUse" timestamp="1475226833193731000" flags="TRANSIENT, TRANSRESET"/>
-        <GuestProperty name="/VirtualBox/GuestInfo/User/erga1@PCWINXPKSE/UsageState" value="Idle" timestamp="1475226793068612000" flags="TRANSIENT, TRANSRESET"/>
-        <GuestProperty name="/VirtualBox/HostInfo/GUI/LanguageID" value="el_GR" timestamp="1475226870377933000" flags=""/>
+        <GuestProperty name="/VirtualBox/GuestAdd/Components/VBoxControl.exe" value="5.0.8r103449" timestamp="1479201782564791000" flags=""/>
+        <GuestProperty name="/VirtualBox/GuestAdd/Components/VBoxCredProv.dll" value="-" timestamp="1479201782575011000" flags=""/>
+        <GuestProperty name="/VirtualBox/GuestAdd/Components/VBoxDisp.dll" value="5.0.8r103449" timestamp="1479201782565832000" flags=""/>
+        <GuestProperty name="/VirtualBox/GuestAdd/Components/VBoxGINA.dll" value="-" timestamp="1479201782574793000" flags=""/>
+        <GuestProperty name="/VirtualBox/GuestAdd/Components/VBoxGuest.sys" value="5.0.8r103449" timestamp="1479201782579335000" flags=""/>
+        <GuestProperty name="/VirtualBox/GuestAdd/Components/VBoxHook.dll" value="5.0.8r103449" timestamp="1479201782565427000" flags=""/>
+        <GuestProperty name="/VirtualBox/GuestAdd/Components/VBoxMRXNP.dll" value="5.0.8r103449" timestamp="1479201782573270000" flags=""/>
+        <GuestProperty name="/VirtualBox/GuestAdd/Components/VBoxMouse.sys" value="5.0.8r103449" timestamp="1479201782579539000" flags=""/>
+        <GuestProperty name="/VirtualBox/GuestAdd/Components/VBoxOGL.dll" value="5.0.8r103449" timestamp="1479201782578900000" flags=""/>
+        <GuestProperty name="/VirtualBox/GuestAdd/Components/VBoxOGLarrayspu.dll" value="5.0.8r103449" timestamp="1479201782575362000" flags=""/>
+        <GuestProperty name="/VirtualBox/GuestAdd/Components/VBoxOGLcrutil.dll" value="5.0.8r103449" timestamp="1479201782576214000" flags=""/>
+        <GuestProperty name="/VirtualBox/GuestAdd/Components/VBoxOGLerrorspu.dll" value="5.0.8r103449" timestamp="1479201782576421000" flags=""/>
+        <GuestProperty name="/VirtualBox/GuestAdd/Components/VBoxOGLfeedbackspu.dll" value="5.0.8r103449" timestamp="1479201782578190000" flags=""/>
+        <GuestProperty name="/VirtualBox/GuestAdd/Components/VBoxOGLpackspu.dll" value="5.0.8r103449" timestamp="1479201782577099000" flags=""/>
+        <GuestProperty name="/VirtualBox/GuestAdd/Components/VBoxOGLpassthroughspu.dll" value="5.0.8r103449" timestamp="1479201782577303000" flags=""/>
+        <GuestProperty name="/VirtualBox/GuestAdd/Components/VBoxSF.sys" value="5.0.8r103449" timestamp="1479201782579731000" flags=""/>
+        <GuestProperty name="/VirtualBox/GuestAdd/Components/VBoxService.exe" value="5.0.8r103449" timestamp="1479201782573492000" flags=""/>
+        <GuestProperty name="/VirtualBox/GuestAdd/Components/VBoxTray.exe" value="5.0.8r103449" timestamp="1479201782574296000" flags=""/>
+        <GuestProperty name="/VirtualBox/GuestAdd/Components/VBoxVideo.sys" value="5.0.8r103449" timestamp="1479201782580188000" flags=""/>
+        <GuestProperty name="/VirtualBox/GuestAdd/HostVerLastChecked" value="4.3.40" timestamp="1479202096095741000" flags=""/>
+        <GuestProperty name="/VirtualBox/GuestAdd/InstallDir" value="C:/Program Files/Oracle/VirtualBox Guest Additions" timestamp="1479201782563772000" flags=""/>
+        <GuestProperty name="/VirtualBox/GuestAdd/Revision" value="103449" timestamp="1479201782563571000" flags=""/>
+        <GuestProperty name="/VirtualBox/GuestAdd/Version" value="5.0.8" timestamp="1479201782562138000" flags=""/>
+        <GuestProperty name="/VirtualBox/GuestAdd/VersionExt" value="5.0.8" timestamp="1479201782562610000" flags=""/>
+        <GuestProperty name="/VirtualBox/GuestInfo/OS/Product" value="Windows XP Professional" timestamp="1479201782559616000" flags=""/>
+        <GuestProperty name="/VirtualBox/GuestInfo/OS/Release" value="5.1.2600" timestamp="1479201782559913000" flags=""/>
+        <GuestProperty name="/VirtualBox/GuestInfo/OS/ServicePack" value="3" timestamp="1479201782561424000" flags=""/>
+        <GuestProperty name="/VirtualBox/HostInfo/GUI/LanguageID" value="C" timestamp="1479201772989276000" flags=""/>
       </GuestProperties>
     </Hardware>
     <StorageControllers>
       <StorageController name="IDE" type="PIIX4" PortCount="2" useHostIOCache="true" Bootable="true">
-        <AttachedDevice type="HardDisk" hotpluggable="false" port="0" device="0">
+        <AttachedDevice passthrough="false" type="DVD" port="1" device="0"/>
+        <AttachedDevice nonrotational="true" type="HardDisk" port="0" device="0">
           <Image uuid="{d4ae40f5-e247-4848-b2dc-68bff3158545}"/>
         </AttachedDevice>
-        <AttachedDevice passthrough="false" type="DVD" hotpluggable="false" port="1" device="0"/>
       </StorageController>
     </StorageControllers>
   </Machine>
