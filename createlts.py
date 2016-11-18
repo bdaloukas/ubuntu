@@ -40,3 +40,5 @@ def UpdateLTS(mac, computer)
     
 ret = scan_network()
 #print ret
+
+
