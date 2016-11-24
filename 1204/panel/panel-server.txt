@@ -1,5 +1,5 @@
 [/]
-object-id-list=['menu-bar', 'indicators', 'show-desktop', 'window-list', 'workspace-switcher', 'object-0', 'object-1', 'object-2', 'object-3', 'object-4', 'object-5']
+object-id-list=['menu-bar', 'indicators', 'show-desktop', 'window-list', 'workspace-switcher', 'object-0', 'object-1', 'object-2', 'object-3', 'object-4', 'object-5', 'object-6']
 toplevel-id-list=['top-panel', 'bottom-panel']
 
 [objects/indicators]
@@ -64,6 +64,12 @@ pack-index=6
 pack-type='start'
 toplevel-id='top-panel'
 
+[objects/object-6]
+object-iid='PanelInternalFactory::ActionButton:shutdown'
+pack-index=1
+pack-type='end'
+toplevel-id='top-panel'
+
 [objects/show-desktop]
 object-iid='WnckletFactory::ShowDesktopApplet'
 pack-index=0
@@ -96,7 +102,7 @@ unhide-delay=100
 x=0
 x-centered=false
 x-right=-1
-y=840
+y=744
 y-bottom=0
 y-centered=false
 

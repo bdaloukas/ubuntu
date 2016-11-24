@@ -43,6 +43,8 @@ def ComputeUserName( computer):
             continue
         username = line[ 0:pos]
         return username
+    print "problem at " + computer
+    return ""
                 
 def UpdateLTS(mac, computer):
     print "computer=" + computer + "  mac=" + mac
@@ -58,11 +60,14 @@ def UpdateLTS(mac, computer):
             #text_file.write( "#!/bin/sh\n")
     print "must change"
     username = ComputeUserName( computer)
+    if username == "":
+        return
     with open(filename, "r") as input_file:
         with open(temp_file, "w") as text_file:
             for line in input_file:
                 text_file.write( line)
             text_file.write( search + "\n")
+            print "username=" + username
             text_file.write( "HOSTNAME=" + username + "\n")
             text_file.write( "LDM_USERNAME=" + username + "\n")
             text_file.write( "LDM_PASSWORD=" + username + "\n")
@@ -72,8 +77,30 @@ def UpdateLTS(mac, computer):
     bak_file = filename + ".bak"
     shutil.copyfile( filename, bak_file)
     shutil.copyfile( temp_file, filename)
+
+def CheckLTS():
+    filename = "/var/lib/tftpboot/ltsp/i386/lts.conf"
+    found_XRANDR_MODE_0 = 0
+    
+    found_XRANDR_RATE_0 = 0
+    with open(filename, "r") as input_file:
+        for line in input_file:
+            if line[ 0:len("XRANDR_MODE_0")] == "XRANDR_MODE_0" :
+                found_XRANDR_MODE_0 = 1
+            if line[ 0:len("XRANDR_RATE_0")] == "XRANDR_RATE_0" :
+                found_XRANDR_RATE_0 = 1
+            if line[ 0:len("FAT_RAM_THRESHOLD")] == "FAT_RAM_THRESHOLD":
+                pos = line.find( "=")
+                memory = int( line[ pos+1:])
+                if memory < 600:
+                    print "Καλύτερα είναι το FAT_RAM_THRESHOLD να γίνει 700"
+    if found_XRANDR_MODE_0 == 0:
+        print "Λείπει το XRANDR_MODE_0=1024x768 στο [OLD_MONITOR]"
+    if found_XRANDR_RATE_0 == 0:
+        print "Λείπει το XRANDR_RATE_0=85 στο [OLD_MONITOR]"
                      
 scan_network()
+CheckLTS()
 #print ret
 
 
