@@ -71,7 +71,6 @@ def UpdateLTS(mac, computer):
             text_file.write( "HOSTNAME=" + username + "\n")
             text_file.write( "LDM_USERNAME=" + username + "\n")
             text_file.write( "LDM_PASSWORD=" + username + "\n")
-            text_file.write( "LDM_AUTOLOGIN=True\n")
             text_file.write( "\n")
 
     bak_file = filename + ".bak"
