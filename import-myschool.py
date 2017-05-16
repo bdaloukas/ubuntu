@@ -3,17 +3,27 @@
 # Copyright (C) 2017 Vasilis Daloukas <bdaloukas@gmail.com>
 # License GNU GPL version 3 or newer <http://gnu.org/licenses/gpl.html>
 
-import sys,crypt,pwd,grp
+import sys,crypt,pwd,grp,os
 
+def dorun( cmd, run):
+    if cmd == "" :
+        return
+    if run != 0 :
+        print cmd
+        os.system( cmd)
+    if run == 0:
+        print cmd
+        
 def createUser(name, username, password, users):
     if username in users:
         return ''
     encPass = crypt.crypt(password,"22")
     return "useradd -p "+encPass+ " -s "+ "/bin/bash "+ "-d "+ "/home/" + username+ " -m "+ " -c \""+ name+"\" " + username
 
-def appendUserGroup( username, groupname, groups):
-    if username in groups:
-        return ''
+def appendUserGroup( username, groupname, group):
+    if group != 0:
+        if username in group[3]:
+            return ''            
     return "usermod -a -G " + groupname + " " + username
 
 def StripTags(text):
@@ -28,7 +38,7 @@ def StripTags(text):
                  finished = 0
      return text
 
-def scan_html( filename, groupname, col_am, col_lastname, col_firstname, users, groups):
+def scan_html( filename, groupname, col_am, col_lastname, col_firstname, users, groups, run, group):
     with open(filename, "r") as input_file:
         tr = 0
         for line in input_file:
@@ -45,25 +55,18 @@ def scan_html( filename, groupname, col_am, col_lastname, col_firstname, users, 
                         data_firstname = line
                 if line.find( "</tr>") != -1:
                     tr = 0
-                    #print data_am, data_lastname, data_firstname
                     name = data_lastname + " " + data_firstname
-                    #if data_am == '':
-                    #    continue
                     if (data_am < "0") or (data_am > '99999999'):
                         continue;
-                    #if int(data_am) == 0:
-                    #    continue
                     username = "u" + data_am
                     cmd = createUser(name, username, str( data_am), users)
-                    if cmd != '':
-                        print cmd
-                    cmd = appendUserGroup( username, groupname, groups)
-                    if cmd != '':
-                        print cmd
+                    dorun( cmd, run)
+                    cmd = appendUserGroup( username, groupname, group)
+                    dorun( cmd, run)                        
             if tr == 0:
                 if line.find( "<tr") != -1:
                     tr = 1
-                    counter = 0
+                    counter = -1
                     data_am = 0
                     data_lastname = ''
                     data_firstname = ''
@@ -76,7 +79,6 @@ def create_group( groupname, groups):
 		if group[0] == groupname:
 			found = 1
 	if found == 0:
-		print "Create group "  + groupname
 		return "groupadd " + groupname
 	return ""
 
@@ -93,14 +95,32 @@ except:
 
 groupname = ""
 if len(sys.argv) <= 1:
-    print "Παράδειγμα python import-myschool.py a.html taxi1 3 4 5"
+    print "Παράδειγμα python import-myschool.py a.html taxi1 2 3 4"
+    #Έλεγχος αν θα τρέξει κιόλας
+run = 0
+for param in sys.argv:
+    if param == "run" :
+        run = 1
+    #Διαβάζω τις παραμέτρους
 if len(sys.argv) >= 3:
     groupname = sys.argv[ 2]
     cmd = create_group( groupname, groups)
-    if cmd != "":
-        print cmd
+    dorun( cmd, run)
     col_am = int( sys.argv[ 3])
     col_lastname = int( sys.argv[ 4])
-    col_firstname = int( sys.argv[ 5])
-    scan_html( sys.argv[ 1], groupname, col_am, col_lastname, col_firstname, users, groups)
+    col_firstname = int( sys.argv[ 5])    
 
+    #Βρίσκω το group
+    found = 0
+    for group in groups:
+        if group[0] == groupname:
+            found = 1
+            break 
+    if found == 0:
+        group = 0
+
+    #Διαβάζω το html αρχείο
+    scan_html( sys.argv[ 1], groupname, col_am, col_lastname, col_firstname, users, groups, run, group)
+            
+    cmd = appendUserGroup( "administrator", groupname, group)
+    dorun( cmd, run)
