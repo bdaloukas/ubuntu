@@ -80,7 +80,26 @@ def get_password( username):
     
 def create_file_remmina( username, ip):
     filename = "/home/" + username + "/.remmina/1473068943832.remmina"
-    username2 = username[ 0:5]
+
+    #Βρίσκω με τι username θα μπει ο απομακρυσμένος χρήστης 
+    username2 = username[ 0:2]
+    if username[ 0:2] == "pc" :
+        username2 = username
+        password = username[ 2:]
+    elif username[ 0:3] == "erg" :
+    	username2 = username
+    	password = username
+    elif username == "administrator" :
+        username2 = ""
+        password = ""
+    else :
+    	num = int( username[ 1:])
+	num2 = (num % 20) + 1
+        password = '%02d' % num2
+        username2 = "pc" + str( password)
+	print password
+	print username2
+
     with open(filename, "w") as text_file:
         text_file.write("[remmina]\n")
         text_file.write("disableclipboard=0\n")
@@ -92,7 +111,7 @@ def create_file_remmina( username, ip):
         text_file.write("sharesmartcard=0\n")
         text_file.write("resolution=\n")
         text_file.write("group=\n")
-        text_file.write("password=" + get_password( username2) + "\n")
+        text_file.write("password=" + get_password( password) + "\n")
         text_file.write("name=Windows\n")
         text_file.write("ssh_loopback=0\n")
         text_file.write("shareprinter=0\n")
