@@ -94,12 +94,14 @@ def create_file_remmina( username, ip):
         password = ""
     elif username[ 0:1] == 'u' :
     	num = int( username[ 1:])
-	num2 = (num % 20) + 1
+	num2 = (num % 20)
+        if num2 == 0:
+           num2 = 20
         password = '%02d' % num2
         username2 = "pc" + str( password)
 	print password
 	print username2
-    else
+    else:
         username2 = username
 
     with open(filename, "w") as text_file:
@@ -137,10 +139,6 @@ if len( sys.argv) == 2:
     username = str(sys.argv[1])
 else:
     username = getpass.getuser()
-    if username[ 0:1] == 'u':
-         username = "pc" + username[-2]
-    if username[ 0:1] == 'a':
-         username = "pc" + username[-2]
 print username
 create_file_pref( username)
 s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
