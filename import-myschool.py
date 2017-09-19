@@ -21,9 +21,11 @@ def createUser(name, username, password, users):
     return "useradd -p "+encPass+ " -s "+ "/bin/bash "+ "-d "+ "/home/" + username+ " -m "+ " -c \""+ name+"\" " + username
 
 def appendUserGroup( username, groupname, group):
-    if group != 0:
-        if username in group[3]:
-            return ''            
+    #print "usermod -a -G " + groupname + " " + username
+    #print group[ 3]
+    #if group != 0:
+    #    if username in group[3]:
+    #        return ''            
     return "usermod -a -G " + groupname + " " + username
 
 def StripTags(text):
@@ -62,7 +64,8 @@ def scan_html( filename, groupname, col_am, col_lastname, col_firstname, users, 
                     cmd = createUser(name, username, str( data_am), users)
                     dorun( cmd, run)
                     cmd = appendUserGroup( username, groupname, group)
-                    dorun( cmd, run)                        
+                    dorun( cmd, run)
+                    dorun( cmd, run)                      
             if tr == 0:
                 if line.find( "<tr") != -1:
                     tr = 1
@@ -97,6 +100,7 @@ groupname = ""
 if len(sys.argv) <= 1:
     print "Παράδειγμα python import-myschool.py a.html taxi1 2 3 4"
     #Έλεγχος αν θα τρέξει κιόλας
+    print "Για να εκτελεστεί θέλει sudo python ..... run"
 run = 0
 for param in sys.argv:
     if param == "run" :
@@ -121,6 +125,7 @@ if len(sys.argv) >= 3:
 
     #Διαβάζω το html αρχείο
     scan_html( sys.argv[ 1], groupname, col_am, col_lastname, col_firstname, users, groups, run, group)
+    scan_html( sys.argv[ 1], "students", col_am, col_lastname, col_firstname, users, groups, run, group)
             
     cmd = appendUserGroup( "administrator", groupname, group)
     dorun( cmd, run)
