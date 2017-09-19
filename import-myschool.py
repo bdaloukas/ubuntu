@@ -49,6 +49,7 @@ def scan_html( filename, groupname, col_am, col_lastname, col_firstname, users, 
                     #Είμαστε σε στήλη
                     counter = counter + 1
                     line = StripTags( line).strip()
+                    line = line.replace('&nbsp;', ' ')
                     if counter == col_am :
                         data_am = line
                     if counter == col_lastname :
